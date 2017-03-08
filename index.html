@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
 body{
-	background: lightgray;
+	background: #f0ffff;
 	height: 100vh;
 	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#description {
+	margin: 0 0 5px 0;
 }
 
 #graphContainer {
@@ -14,6 +20,8 @@ body{
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	border-top: 1px #d8e5e5 solid;
+	border-bottom: 1px #d8e5e5 solid;
 }
 
 .graticule {
@@ -21,6 +29,10 @@ body{
   stroke: #777;
   stroke-width: .5px;
   stroke-opacity: .5;
+}
+
+.mainFont {
+	font-family: 'Roboto', sans-serif;
 }
 
 .sphere {
@@ -31,21 +43,22 @@ body{
   fill: #000;
 }
 
-.legend {
-	display: inline-block;
-	padding: 8px;
-}
-
 .legend-container {
-	margin: 5px;
 	padding: 0;
 	list-style-type: none;
+	background: white;
+	border: 1px black solid;
+	border-radius: 2px;
+	display: inline-block;
+	padding: 4px;
+	margin: 0;
 }
 
 .legend-container li {
-	font-size: 1.3em;
-	font-weight: bold;
-	margin-top: 10px;
+	display: inline-block;
+	font-family: 'Roboto', sans-serif;
+	padding: 4px;
+	border-radius: 2px;
 }
 
 .boundary {
@@ -65,6 +78,11 @@ body{
 	text-align: center;
 }
 
+#title {
+	margin: 10px 0;
+	font-family: 'Roboto', sans-serif;
+}
+
 .tooltip {
   background: lightgrey;
   border: solid 1px #586262;
@@ -78,14 +96,19 @@ body{
 }
 
 </style>
+<head>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
+</head>
 <body>
-	<h1 class="text-center">Meteorite landings</h1>
-	<div id="graphContainer"></div>
+	<h1 id="title" class="text-center">Meteorite landings</h1>
+	<p id="description" class="mainFont">Zoom and drag the map!</p>
 	<ul class="legend-container text-center">
-		<li>Stony Meteorites <div class="legend"  style="background: #39FF14" /></li>
-		<li>Iron Meteorites <div class="legend"  style="background: #ffff00" /></li>
-		<li>Stony-Iron Meteorites <div class="legend"  style="background: #37FDFC" /></li>
+		<li style="background: #39FF14" >Stony Meteorites</li>
+		<li style="background: #ffff00">Iron Meteorites</li>
+		<li style="background: #37FDFC">Stony-Iron Meteorites</li>
 	</ul>
+	<div id="graphContainer"></div>
+	<p class="mainFont">Github repo: <a target="_blank" href="https://github.com/kevinnorris/MeteoriteMap">kevinnorris/MeteoriteMap</a></p>
 	<script src="//d3js.org/d3.v4.min.js" charset="utf-8"></script>
 	<script src="//d3js.org/topojson.v1.min.js"></script>
 	<script src ="/meteoriteClassification.js"></script>
@@ -99,7 +122,7 @@ body{
 	*/
 
 	var width = parseInt(d3.select("#graphContainer").style("width")),
-  		height = parseInt(d3.select("#graphContainer").style("width")) / 2;
+  		height = width / 2;
 	
 	// Country colors
 	var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -237,13 +260,16 @@ body{
 
 	// Wait for resize to be finished before running this code
 	// Acutally waits untill no resize event has happend in the last 250ms
-	var resizeTimer;
+	/*var resizeTimer;
 	d3.select(window).on('resize', function(e) {
-	clearTimeout(resizeTimer);
-	resizeTimer = setTimeout(function() {
-		console.log('window finished resizing');						
-	}, 250);
-});
-
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(function() {
+			console.log('window finished resizing');
+			width = parseInt(d3.select("#graphContainer").style("width"));
+			height = width / 2;
+			
+			svg.attr('height', height);						
+		}, 250);
+	});*/
 	</script>
 </body>
