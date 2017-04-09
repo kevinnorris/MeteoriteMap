@@ -257,19 +257,5 @@ body{
 					.style('top', (d3.event.pageY - 20) + 'px');
 			});
 	});
-
-	// Wait for resize to be finished before running this code
-	// Acutally waits untill no resize event has happend in the last 250ms
-	/*var resizeTimer;
-	d3.select(window).on('resize', function(e) {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(function() {
-			console.log('window finished resizing');
-			width = parseInt(d3.select("#graphContainer").style("width"));
-			height = width / 2;
-			
-			svg.attr('height', height);						
-		}, 250);
-	});*/
 	</script>
 </body>
